@@ -33,10 +33,18 @@ app.use(
 
 
 
-app.use(cors({
-  origin: "http://localhost:5173",  // React app URL
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://smartyatrafrontend.vercel.app"
+    ],
+    credentials: true,
+  })
+);
+
+
+
 
 //routes
 app.use("/api/v1/auth", userRoutes);

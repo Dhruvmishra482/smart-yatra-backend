@@ -48,10 +48,10 @@ app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 
 
+app.get("/api/v1", (req, res) => {
+  res.status(200).json({ message: "Smart Yatra API working!" });
+});
 
-app.get('/',(req,res)=>{
-    res.send("server is running ")
-})
 
 app.listen(PORT, () => {
 });

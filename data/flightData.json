@@ -1,0 +1,26 @@
+[
+  {
+    "from": "Delhi",
+    "to": "Mumbai",
+    "date": "2025-06-15",
+    "mode": "flight",
+    "class": "Economy",
+    "fare": 3200,
+    "duration": "2h 10m",
+    "airline": "IndiGo",
+    "departureTime": "09:30",
+    "arrivalTime": "11:40"
+  },
+  {
+    "from": "Delhi",
+    "to": "Bangalore",
+    "date": "2025-06-15",
+    "mode": "flight",
+    "class": "Economy",
+    "fare": 4100,
+    "duration": "2h 45m",
+    "airline": "Air India",
+    "departureTime": "15:20",
+    "arrivalTime": "18:05"
+  }
+]

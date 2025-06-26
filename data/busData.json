@@ -1,0 +1,26 @@
+[
+  {
+    "from": "Delhi",
+    "to": "Manali",
+    "date": "2025-06-15",
+    "mode": "bus",
+    "class": "Volvo AC",
+    "fare": 1150,
+    "duration": "12h 30m",
+    "operator": "Himachal Roadways",
+    "departureTime": "20:00",
+    "arrivalTime": "08:30"
+  },
+  {
+    "from": "Mumbai",
+    "to": "Goa",
+    "date": "2025-06-15",
+    "mode": "bus",
+    "class": "Sleeper Non-AC",
+    "fare": 900,
+    "duration": "14h 15m",
+    "operator": "Neeta Travels",
+    "departureTime": "18:45",
+    "arrivalTime": "09:00"
+  }
+]

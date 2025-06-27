@@ -40,6 +40,9 @@ exports.createOrder = async (req, res) => {
 
  const receiptId = `order_receipt_${Date.now()}`;
 
+ console.log("RAZORPAY KEY:", process.env.RAZORPAY_KEY_ID);
+console.log("RAZORPAY SECRET:", process.env.RAZORPAY_KEY_SECRET);
+
    
 const order = await razorpayInstance.orders.create({
   amount: totalAmount,

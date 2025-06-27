@@ -6,6 +6,9 @@ const mailSender = require("../utils/mailSender");
 const bookingSuccessTemplate = require("../emailTemplates/bookingSuccessTemplate");
 const bookingFailedTemplate = require("../emailTemplates/bookingFailedTemplate");
 
+console.log("RAZORPAY_KEY_ID (Backend):", process.env.RAZORPAY_KEY_ID);
+console.log("RAZORPAY_KEY_SECRET (Backend):", process.env.RAZORPAY_KEY_SECRET);
+
 Razorpay = require("razorpay");
 const razorpayInstance = new Razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
@@ -40,9 +43,7 @@ exports.createOrder = async (req, res) => {
 
  const receiptId = `order_receipt_${Date.now()}`;
 
- console.log("RAZORPAY KEY:", process.env.RAZORPAY_KEY_ID);
-console.log("RAZORPAY SECRET:", process.env.RAZORPAY_KEY_SECRET);
-
+ 
    
 const order = await razorpayInstance.orders.create({
   amount: totalAmount,

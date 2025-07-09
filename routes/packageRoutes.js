@@ -9,6 +9,8 @@ const {
   deletePackage,
 } = require("../controllers/package");
 
+
+
 const { auth, isVisitor, isAdmin } = require("../middleware/auth");
 
 //  Create Trip Package (Admin Only)
@@ -25,6 +27,9 @@ router.put("/updatepackage/:id", auth, isAdmin, updatePackage);
 
 // Delete Package (Admin Only)
 router.delete("/deletepackage/:id", auth, isAdmin, deletePackage);
+
+
+
 
 module.exports = router;
 

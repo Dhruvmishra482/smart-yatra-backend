@@ -13,6 +13,8 @@ const ticketsRoutes=require("./routes/ticketsRoutes")
 const packageRoutes=require("./routes/packageRoutes")
 const paymentRoutes = require("./routes/paymentRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const adminRoutes=require("./routes/adminRoutes")
+const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
 
 
@@ -54,6 +56,8 @@ app.use("/api/v1",ticketsRoutes)
 app.use("/api/v1/package",packageRoutes)
 app.use("/api/v1/payment", paymentRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
+app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/auth", authRoutes);
 
 
 app.get("/api/v1", (req, res) => {

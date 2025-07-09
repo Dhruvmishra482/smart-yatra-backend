@@ -1,20 +1,22 @@
 const mongoose = require("mongoose");
 
+
 const BookingSchema = mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
-  tripPackages: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "TripPackages",
-    required: true,
-  },
+tripPackage: {
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "TripPackages", 
+  required: true,
+},
   noOfPerson: {
     type: Number,
     required: true,
   },
+
   totalAmount: {
     type: Number,
   },
@@ -44,4 +46,5 @@ const BookingSchema = mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model("Bookings", BookingSchema);
+module.exports = mongoose.model("Booking", BookingSchema); 
+

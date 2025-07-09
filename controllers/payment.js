@@ -81,8 +81,6 @@ exports.verifyPayment = async (req, res) => {
       tripPackageId,
     } = req.body;
 
-   
-
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -93,36 +91,42 @@ exports.verifyPayment = async (req, res) => {
     const status = isValid ? "success" : "failed";
 
     const selectedPackage = await TripPackages.findById(tripPackageId);
+    if (!selectedPackage) {
+      return res.status(404).json({
+        success: false,
+        message: "Trip package not found",
+      });
+    }
 
- await Booking.create({
-  user: req.user.id,
-  tripPackages: tripPackageId,  
-  noOfPerson: noOfPersons,    
-  totalAmount: selectedPackage.price * noOfPersons,
-  orderId: razorpay_order_id,
-  status,
-  contactDetails,
-});
+    const booking = await Booking.create({
+      user: req.user.id,
+      tripPackages: tripPackageId,
+      noOfPerson: noOfPersons,
+      totalAmount: selectedPackage.price * noOfPersons,
+      orderId: razorpay_order_id,
+      status,
+      contactDetails,
+    });
+
     const subject = isValid
-      ? " Booking Confirmed - Smart Yatra"
-      : " Booking Failed - Smart Yatra";
+      ? "Booking Confirmed - Smart Yatra"
+      : "Booking Failed - Smart Yatra";
 
     const template = isValid ? bookingSuccessTemplate : bookingFailedTemplate;
+
     await mailSender(contactDetails.email, subject, template, {
       userName: contactDetails.name,
       packageName: selectedPackage.title,
-      amountPaid: Booking.totalAmount,
+      amountPaid: booking.totalAmount,
       noOfPersons,
     });
 
     return res.status(200).json({
       success: true,
-      message: `Payment ${status} and Booking ${
-        isValid ? "confirmed" : "logged"
-      }`,
+      message: `Payment ${status} and Booking ${isValid ? "confirmed" : "logged"}`,
     });
   } catch (error) {
-    
+    console.error("Payment Verify Error:", error);
     return res.status(500).json({
       success: false,
       message: "Something went wrong during payment verification",
@@ -176,7 +180,7 @@ exports.getAdminAllBookings = async (req, res) => {
     //  Find all bookings sorted by recent first
     const bookings = await Booking.find()
       .populate("user", "name email")
-      .populate("tripPackages", "title price location")
+      .populate("tripPackage", "title price location")
       .sort({ createdAt: -1 });
 
     return res.status(200).json({

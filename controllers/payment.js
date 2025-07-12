@@ -145,7 +145,7 @@ exports.verifyPayment = async (req, res) => {
 exports.getUserBookings = async (req, res) => {
   try {
     const bookings = await Booking.find({ user: req.user.id })
-      .populate("tripPackages")
+      .populate("tripPackage")
       .sort({ createdAt: -1 });
 
     return res.status(200).json({

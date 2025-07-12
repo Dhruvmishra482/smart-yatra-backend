@@ -81,6 +81,14 @@ exports.verifyPayment = async (req, res) => {
       tripPackageId,
     } = req.body;
 
+    console.log("Payment Data:", {
+  razorpay_order_id,
+  razorpay_payment_id,
+  razorpay_signature,
+  RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
+  user: req.user,
+});
+
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
@@ -100,7 +108,7 @@ exports.verifyPayment = async (req, res) => {
 
     const booking = await Booking.create({
       user: req.user.id,
-      tripPackages: tripPackageId,
+      tripPackage: tripPackageId,
       noOfPerson: noOfPersons,
       totalAmount: selectedPackage.price * noOfPersons,
       orderId: razorpay_order_id,

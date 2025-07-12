@@ -38,8 +38,8 @@ app.use(
 app.use(
   cors({
     origin: [
-      "http://localhost:5173",
-      "https://smartyatrafrontend.vercel.app"
+      // "http://localhost:5173",
+       process.env.FRONT_END_URL
     ],
     credentials: true,
   })

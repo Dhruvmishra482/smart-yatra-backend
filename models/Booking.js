@@ -35,6 +35,7 @@ tripPackage: {
     email: {
       type: String,
     },
+     phone: { type: String },
   },
   updatedAt: {
     type: Date,

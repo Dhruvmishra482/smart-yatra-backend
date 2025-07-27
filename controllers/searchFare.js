@@ -1,14 +1,14 @@
-const fs = require("fs").promises;  // promise based fs
+
+const fs = require("fs").promises;
 const path = require("path");
-const SearchQuery = require("../models/SearchQuerySchema")
+const SearchQuery = require("../models/SearchQuerySchema");
 
 exports.searchFare = async (req, res) => {
   try {
     const userId = req.user.id;
     const { from, to, travelDate, modeOfTransport } = req.body;
-      
 
-    // 1. DB me user search query save karo asynchronously (save hone do)
+    // Step 1: Save Search Record
     const searchRecord = new SearchQuery({
       user: userId,
       searchType: "fare",
@@ -16,47 +16,54 @@ exports.searchFare = async (req, res) => {
     });
     await searchRecord.save();
 
-    // 2. Mode ke hisab se mock data file ka path set karo
-    let fileName;
-    if (modeOfTransport === "bus") fileName = "busData.json";
-    else if (modeOfTransport === "train") fileName = "trainData.json";
-    else if (modeOfTransport === "flight") fileName = "flightData.json";
-    else {
-      // Agar mode invalid ya nahi diya, sab data merge karne ke liye ya error
-      // yahan simple ek error return kar dete hain for clarity
-      return res.status(400).json({ success: false, message: "Invalid transport mode" });
+    // Step 2: Select files based on transport mode
+    let filesToRead = [];
+
+    if (!modeOfTransport || modeOfTransport === "") {
+      filesToRead = ["busData.json", "trainData.json", "flightData.json"];
+    } else {
+      const validModes = ["bus", "train", "flight"];
+      if (!validModes.includes(modeOfTransport)) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid mode of transport",
+        });
+      }
+      filesToRead = [`${modeOfTransport}.json`];
     }
 
-    // 3. File ka absolute path banao (server folder structure ke hisab se)
-    const filePath = path.join(__dirname, "..", "data", fileName);
+    // Step 3: Read and merge fare data
+    let allFares = [];
 
-    // 4. Async file read karo (promise based)
-    const fileData = await fs.readFile(filePath, "utf-8");
+    for (const file of filesToRead) {
+      const filePath = path.join(__dirname, "..", "data", file);
+      const fileContent = await fs.readFile(filePath, "utf-8");
+      const parsedData = JSON.parse(fileContent);
 
-    // 5. Parse karo json me
-    const mockData = JSON.parse(fileData);
+      const matchedFares = parsedData.filter(
+        (item) =>
+          item.from.toLowerCase() === from.toLowerCase() &&
+          item.to.toLowerCase() === to.toLowerCase()
+      );
 
-    // 6. Filter karo user ke input ke hisab se
-    const fares = mockData.filter(
-      (item) =>
-        item.from.toLowerCase() === from.toLowerCase() &&
-        item.to.toLowerCase() === to.toLowerCase()
-    );
+      allFares.push(...matchedFares);
+    }
 
-    // 7. Result bhejo
-    res.status(200).json({
+    // Step 4: Return response
+    return res.status(200).json({
       success: true,
       message: "Fare search successful",
-      data: fares,
+      data: allFares,
     });
   } catch (error) {
-   
-    res.status(500).json({
+    console.error("Fare Search Error:", error);
+    return res.status(500).json({
       success: false,
       message: "Server error during fare search",
     });
   }
 };
+
 
 
 exports.getUserSearchHistory = async (req, res) => {

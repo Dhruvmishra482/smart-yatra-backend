@@ -1,8 +1,6 @@
-
-
 const fs = require("fs/promises");
 const path = require("path");
-const SearchQuery = require("../models/SearchQuery");
+const SearchQuery = require("../models/SearchQuerySchema");
 
 exports.searchFare = async (req, res) => {
   try {
@@ -18,7 +16,7 @@ exports.searchFare = async (req, res) => {
 
     const allModes = ["bus", "train", "flight"];
     const selectedModes = modeOfTransport
-      ? [modeOfTransport.toLowerCase()]
+      ? [modeOfTransport.toLowerCase()] // 🛠 FIXED: lowercase
       : allModes;
 
     let allResults = [];
@@ -37,7 +35,8 @@ exports.searchFare = async (req, res) => {
             item.to.toLowerCase() === to.toLowerCase()
         );
 
-        console.log(`${mode.toUpperCase()} results: ${filtered.length}`);
+        // 🧠 Debug log for each mode
+        console.log(`✅ ${mode.toUpperCase()} results: ${filtered.length}`);
         console.log(
           filtered.map((x) => ({
             operator: x.operator,
@@ -49,7 +48,7 @@ exports.searchFare = async (req, res) => {
 
         allResults = [...allResults, ...filtered];
       } catch (err) {
-        console.warn(`Error reading data for mode: ${mode} -> ${err.message}`);
+        console.warn(`❌ Error reading data for mode: ${mode} -> ${err.message}`);
       }
     }
 
@@ -59,14 +58,13 @@ exports.searchFare = async (req, res) => {
       data: allResults,
     });
   } catch (error) {
-    console.log("Server Error:", error.message);
+    console.log("❌ Server Error: ", error.message);
     res.status(500).json({
       success: false,
       message: "Server error during fare search",
     });
   }
 };
-
 
 
 

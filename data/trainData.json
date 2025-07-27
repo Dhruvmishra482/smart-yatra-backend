@@ -1,74 +1,26 @@
 [
   {
-    "from": "Chandigarh",
-    "to": "Delhi",
-    "date": "2025-08-01",
-    "mode": "train",
-    "class": "AC Chair Car",
-    "fare": 620,
-    "duration": "3h 50m",
-    "operator": "Shatabdi Express",
-    "departureTime": "06:30",
-    "arrivalTime": "10:20"
-  },
-  {
-    "from": "Chandigarh",
-    "to": "Delhi",
-    "date": "2025-08-01",
+    "from": "Delhi",
+    "to": "Mumbai",
+    "date": "2025-06-15",
     "mode": "train",
     "class": "Sleeper",
-    "fare": 190,
-    "duration": "5h 15m",
-    "operator": "Himalayan Queen",
-    "departureTime": "15:45",
-    "arrivalTime": "21:00"
-  },
-  {
-    "from": "Chandigarh",
-    "to": "Delhi",
-    "date": "2025-08-01",
-    "mode": "train",
-    "class": "2A",
-    "fare": 780,
-    "duration": "4h 10m",
-    "operator": "Paschim Express",
-    "departureTime": "07:20",
-    "arrivalTime": "11:30"
+    "fare": 650,
+    "duration": "17h 30m",
+    "trainName": "Rajdhani Express",
+    "departureTime": "18:45",
+    "arrivalTime": "12:15"
   },
   {
     "from": "Delhi",
-    "to": "Chandigarh",
-    "date": "2025-08-01",
+    "to": "Jaipur",
+    "date": "2025-06-15",
     "mode": "train",
-    "class": "AC Chair Car",
-    "fare": 630,
-    "duration": "3h 55m",
-    "operator": "Shatabdi Express",
-    "departureTime": "17:15",
-    "arrivalTime": "21:10"
-  },
-  {
-    "from": "Delhi",
-    "to": "Chandigarh",
-    "date": "2025-08-01",
-    "mode": "train",
-    "class": "2S",
-    "fare": 175,
-    "duration": "5h 30m",
-    "operator": "Himalayan Queen",
-    "departureTime": "11:30",
-    "arrivalTime": "17:00"
-  },
-  {
-    "from": "Delhi",
-    "to": "Chandigarh",
-    "date": "2025-08-01",
-    "mode": "train",
-    "class": "3A",
-    "fare": 520,
-    "duration": "4h 5m",
-    "operator": "Paschim Express",
-    "departureTime": "06:10",
-    "arrivalTime": "10:15"
+    "class": "AC 3 Tier",
+    "fare": 450,
+    "duration": "5h 40m",
+    "trainName": "Shatabdi Express",
+    "departureTime": "07:30",
+    "arrivalTime": "13:10"
   }
 ]

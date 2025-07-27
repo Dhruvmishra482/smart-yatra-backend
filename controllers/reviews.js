@@ -23,7 +23,7 @@ exports.createReview = async (req, res) => {
     }
 
     // check existing review
-    const existingReview = await RatingAndReview.findOne({
+    const existingReview = await Reviews.findOne({
       user: userId,
       tripPackage: tripPackageId,
     });

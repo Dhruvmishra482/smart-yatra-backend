@@ -118,14 +118,18 @@ exports.verifyPayment = async (req, res) => {
       ? "Booking Confirmed - Smart Yatra"
       : "Booking Failed - Smart Yatra";
 
-    const template = isValid ? bookingSuccessTemplate : bookingFailedTemplate;
+    const template = isValid
+  ? bookingSuccessTemplate
+  : bookingFailedTemplate;
 
-    await mailSender(contactDetails.email, subject, template, {
-      userName: contactDetails.name,
-      packageName: selectedPackage.title,
-      amountPaid: booking.totalAmount,
-      noOfPersons,
-    });
+const emailHtml = template({
+  userName: contactDetails.name,
+  packageName: selectedPackage.title,
+  amountPaid: booking.totalAmount,
+  noOfPersons,
+});
+
+await mailSender(contactDetails.email, subject, emailHtml);
 
     return res.status(200).json({
       success: true,

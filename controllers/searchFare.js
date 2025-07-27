@@ -1,6 +1,4 @@
-const fs = require("fs").promises;
-const path = require("path");
-const SearchQuery = require("../models/SearchQuerySchema");
+
 
 const fs = require("fs/promises");
 const path = require("path");

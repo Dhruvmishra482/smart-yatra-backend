@@ -16,7 +16,8 @@ const reviewRoutes = require("./routes/reviewRoutes");
 const adminRoutes=require("./routes/adminRoutes")
 const authRoutes = require("./routes/authRoutes");
 const cors = require("cors");
-const mailSender = require("../utils/mailSender");
+
+
 
 
 
@@ -61,16 +62,7 @@ app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/auth", authRoutes);
 
-router.get("/test-mail", async (req, res) => {
-  try {
-    const html = resetPasswordTemplate("https://example.com/reset-password/test123");
-    await mailSender("yourmail@gmail.com", "Test Mail", html);
-    res.send("Mail sent");
-  } catch (e) {
-    console.log(e);
-    res.send("Failed");
-  }
-});
+
 
 
 app.get("/api/v1", (req, res) => {

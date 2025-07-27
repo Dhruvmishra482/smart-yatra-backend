@@ -15,98 +15,6 @@ require("dotenv").config();
 
 //signup controller
 
-// exports.signUp = async (req, res) => {
-//   try {
-//     //fetch data from request
-//     const {
-//       firstName,
-//       lastName,
-//       mobileNumber,
-//       email,
-//       password,
-//       confirmPassword,
-//       accountType,
-//     } = req.body;
-//     //check if data is missing
-//     if (
-//       !firstName ||
-//       !lastName ||
-//       !mobileNumber ||
-//       !email ||
-//       !confirmPassword ||
-//       !accountType ||
-//       !password
-//     ) {
-//       return res.status(403).send({
-//         success: false,
-//         message: "all feilds are required",
-//       });
-//     }
-
-//     //check if user alreadyb exits
-
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "user alreadyt exits",
-//       });
-//     }
-
-//     //check if password and confirm password match
-//     if (password != confirmPassword) {
-//       return res.status(400).json({
-//         success: false,
-//         message: "password and confirm password doesnot match",
-//       });
-//     }
-//     // //send otp
-//     // const otp=otpGenerator.generate(6,{
-//     //     upperCaseAlphabets:false,
-//     //     specialChars:false,
-//     // })
-//     // //delete any old otp for this email
-//     // await OTP.deleteMany({email})
-//     // //save otp in db
-//     // await OTP.create({
-//     //     email,
-//     //     otp,
-//     // })
-//     // // send otp mail
-//     // await mailSender(email,"verification otp",otpTemplate(otp))
-//     // //verify otp
-//     // const recentOtp=await OTP.findOne({email}).sort({createdAt:-1})
-//     // if(!recentOtp|| recentOtp!==otp){
-//     //      return res.status(400).json({
-//     //     success: false,
-//     //     message: "Invalid or expired OTP",
-//     //   });
-//     // }
-//     //hashed the password
-//     const hashedPassword = await bcrypt.hash(password, 10);
-
-//     //create user
-//     const user = await User.create({
-//       firstName,
-//       lastName,
-//       password: hashedPassword,
-//       mobileNumber,
-//       email,
-//       accountType,
-//     });
-//     return res.status(200).json({
-//       success: true,
-//       user,
-//       message: "user created succesfully",
-//     });
-//   } catch (error) {
-//       console.log("Signup Error:", error);
-//     return res.status(404).json({
-//       success: false,
-//       message: "user cannot be registered please try again",
-//     });
-//   }
-// };
 
 exports.signUp = async (req, res) => {
   try {
@@ -170,65 +78,7 @@ const otp = generateNumericOTP();
 
 
 
-// exports.sendOTP = async (req, res) => {
-//   try {
-//     const { email } = req.body;
 
-//     if (!email) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "Email is required" });
-//     }
-
-//     const existingOtp = await OTP.findOne({ email });
-//     if (existingOtp) await OTP.deleteOne({ email });
-
-//     const otp = otpGenerator.generate(6, {
-//       upperCaseAlphabets: false,
-//       specialChars: false,
-//     });
-
-//     await OTP.create({ email, otp });
-//     await mailSender(email, "Verify your OTP", otpTemplate(otp));
-
-//     return res
-//       .status(200)
-//       .json({ success: true, message: "OTP sent successfully" });
-//   } catch (error) {
-//     console.error("Error sending OTP:", error);
-//     return res
-//       .status(500)
-//       .json({ success: false, message: "Failed to send OTP" });
-//   }
-// };
-// exports.verifyOTP = async (req, res) => {
-//   try {
-//     const { email, otp } = req.body;
-
-//     if (!email || !otp) {
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "Email and OTP are required" });
-//     }
-
-//     const existingOTP = await OTP.findOne({ email, otp });
-
-//     if (!existingOTP) {
-//       return res.status(400).json({ success: false, message: "Invalid OTP" });
-//     }
-
-//     await OTP.deleteOne({ email });
-
-//     return res
-//       .status(200)
-//       .json({ success: true, message: "OTP verified successfully" });
-//   } catch (error) {
-//     console.error("Error verifying OTP:", error);
-//     return res
-//       .status(500)
-//       .json({ success: false, message: "OTP verification failed" });
-//   }
-// };
 
 exports.verifyOTP = async (req, res) => {
   try {
@@ -366,7 +216,7 @@ exports.forgotPassword = async (req, res) => {
     });
 
    const resetLink = `${process.env.FRONT_END_URL}/reset-password/${token}`;
-   console.log("Generated Reset Link:", resetLink);
+   
 
   
 
@@ -375,7 +225,7 @@ exports.forgotPassword = async (req, res) => {
       "Reset Your Password - Smart Yatra",
       resetPasswordTemplate(resetLink)
     );
-    console.log("Email Template Preview:\n", resetPasswordTemplate(resetLink));
+
 
 
     return res.status(200).json({

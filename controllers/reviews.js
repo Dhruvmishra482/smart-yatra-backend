@@ -11,7 +11,7 @@ exports.createReview = async (req, res) => {
     // check booking
     const booking = await Booking.findOne({
       user: userId,
-      tripPakages: tripPackageId,
+      tripPakage: tripPackageId,
       status: "success",
     });
 

@@ -366,13 +366,17 @@ exports.forgotPassword = async (req, res) => {
     });
 
    const resetLink = `${process.env.FRONT_END_URL}/reset-password/${token}`;
+   console.log("Generated Reset Link:", resetLink);
 
+  
 
     await mailSender(
       user.email,
       "Reset Your Password - Smart Yatra",
       resetPasswordTemplate(resetLink)
     );
+    console.log("Email Template Preview:\n", resetPasswordTemplate(resetLink));
+
 
     return res.status(200).json({
       success: true,

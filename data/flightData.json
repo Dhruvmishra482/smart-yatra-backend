@@ -1,26 +1,74 @@
 [
   {
-    "from": "Delhi",
-    "to": "Mumbai",
-    "date": "2025-06-15",
+    "from": "Chandigarh",
+    "to": "Delhi",
+    "date": "2025-08-01",
     "mode": "flight",
     "class": "Economy",
-    "fare": 3200,
-    "duration": "2h 10m",
-    "airline": "IndiGo",
-    "departureTime": "09:30",
-    "arrivalTime": "11:40"
+    "fare": 2800,
+    "duration": "1h",
+    "operator": "IndiGo",
+    "departureTime": "08:00",
+    "arrivalTime": "09:00"
+  },
+  {
+    "from": "Chandigarh",
+    "to": "Delhi",
+    "date": "2025-08-01",
+    "mode": "flight",
+    "class": "Economy",
+    "fare": 3100,
+    "duration": "1h 5m",
+    "operator": "Air India",
+    "departureTime": "13:15",
+    "arrivalTime": "14:20"
+  },
+  {
+    "from": "Chandigarh",
+    "to": "Delhi",
+    "date": "2025-08-01",
+    "mode": "flight",
+    "class": "Business",
+    "fare": 7900,
+    "duration": "1h",
+    "operator": "Vistara",
+    "departureTime": "19:00",
+    "arrivalTime": "20:00"
   },
   {
     "from": "Delhi",
-    "to": "Bangalore",
-    "date": "2025-06-15",
+    "to": "Mumbai",
+    "date": "2025-08-01",
     "mode": "flight",
     "class": "Economy",
-    "fare": 4100,
-    "duration": "2h 45m",
-    "airline": "Air India",
-    "departureTime": "15:20",
-    "arrivalTime": "18:05"
+    "fare": 4200,
+    "duration": "2h 15m",
+    "operator": "IndiGo",
+    "departureTime": "06:00",
+    "arrivalTime": "08:15"
+  },
+  {
+    "from": "Delhi",
+    "to": "Mumbai",
+    "date": "2025-08-01",
+    "mode": "flight",
+    "class": "Economy",
+    "fare": 4800,
+    "duration": "2h 10m",
+    "operator": "Air India",
+    "departureTime": "11:30",
+    "arrivalTime": "13:40"
+  },
+  {
+    "from": "Delhi",
+    "to": "Mumbai",
+    "date": "2025-08-01",
+    "mode": "flight",
+    "class": "Business",
+    "fare": 9500,
+    "duration": "2h",
+    "operator": "Vistara",
+    "departureTime": "17:45",
+    "arrivalTime": "19:45"
   }
 ]

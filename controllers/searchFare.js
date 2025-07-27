@@ -1,4 +1,3 @@
-
 const fs = require("fs").promises;
 const path = require("path");
 const SearchQuery = require("../models/SearchQuerySchema");
@@ -8,61 +7,52 @@ exports.searchFare = async (req, res) => {
     const userId = req.user.id;
     const { from, to, travelDate, modeOfTransport } = req.body;
 
-    // Step 1: Save Search Record
-    const searchRecord = new SearchQuery({
+    // Save query to DB
+    await SearchQuery.create({
       user: userId,
       searchType: "fare",
       queryDetails: { from, to, travelDate, modeOfTransport },
     });
-    await searchRecord.save();
 
-    // Step 2: Select files based on transport mode
-    let filesToRead = [];
+    const allModes = ["bus", "train", "flight"];
+    const selectedModes = modeOfTransport ? [modeOfTransport] : allModes;
 
-    if (!modeOfTransport || modeOfTransport === "") {
-      filesToRead = ["busData.json", "trainData.json", "flightData.json"];
-    } else {
-      const validModes = ["bus", "train", "flight"];
-      if (!validModes.includes(modeOfTransport)) {
-        return res.status(400).json({
-          success: false,
-          message: "Invalid mode of transport",
-        });
+    let allResults = [];
+
+    for (const mode of selectedModes) {
+      const fileName = `${mode}Data.json`;
+      const filePath = path.join(__dirname, "..", "data", fileName);
+
+      try {
+        const fileData = await fs.readFile(filePath, "utf-8");
+        const parsedData = JSON.parse(fileData);
+
+        const filtered = parsedData.filter(
+          (item) =>
+            item.from.toLowerCase() === from.toLowerCase() &&
+            item.to.toLowerCase() === to.toLowerCase()
+        );
+
+        allResults = [...allResults, ...filtered];
+      } catch (err) {
+        console.warn(`Error reading data for mode: ${mode}`);
       }
-      filesToRead = [`${modeOfTransport}.json`];
     }
 
-    // Step 3: Read and merge fare data
-    let allFares = [];
-
-    for (const file of filesToRead) {
-      const filePath = path.join(__dirname, "..", "data", file);
-      const fileContent = await fs.readFile(filePath, "utf-8");
-      const parsedData = JSON.parse(fileContent);
-
-      const matchedFares = parsedData.filter(
-        (item) =>
-          item.from.toLowerCase() === from.toLowerCase() &&
-          item.to.toLowerCase() === to.toLowerCase()
-      );
-
-      allFares.push(...matchedFares);
-    }
-
-    // Step 4: Return response
-    return res.status(200).json({
+    res.status(200).json({
       success: true,
       message: "Fare search successful",
-      data: allFares,
+      data: allResults,
     });
   } catch (error) {
-    console.error("Fare Search Error:", error);
-    return res.status(500).json({
+    console.log(error);
+    res.status(500).json({
       success: false,
       message: "Server error during fare search",
     });
   }
 };
+
 
 
 

@@ -58,7 +58,7 @@ exports.createReview = async (req, res) => {
 
 exports.getAllReviewsOfPackage = async (req, res) => {
   try {
-    const { packageId } = req.params.id;
+    const { packageId } = req.params;
 
     const reviews = await Reviews.find({ tripPackage: packageId })
       .populate("user", "name email")

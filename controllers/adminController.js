@@ -2,7 +2,7 @@ const User = require("../models/User");
 const TripPackage = require("../models/TripPakages");
 const Booking = require("../models/Booking");
 const Reviews = require("../models/Reviews");
-const SearchQuery = require("../models/SearchQuery");
+const SearchQuery = require("../models/SearchQuerySchema");
 
 exports.getDashboardStats = async (req, res) => {
   try {

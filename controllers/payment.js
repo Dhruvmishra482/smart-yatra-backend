@@ -6,8 +6,6 @@ const mailSender = require("../utils/mailSender");
 const bookingSuccessTemplate = require("../emailTemplates/bookingSuccessTemplate");
 const bookingFailedTemplate = require("../emailTemplates/bookingFailedTemplate");
 
-console.log("RAZORPAY_KEY_ID (Backend):", process.env.RAZORPAY_KEY_ID);
-console.log("RAZORPAY_KEY_SECRET (Backend):", process.env.RAZORPAY_KEY_SECRET);
 
 Razorpay = require("razorpay");
 const razorpayInstance = new Razorpay({

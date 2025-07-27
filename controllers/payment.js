@@ -79,14 +79,7 @@ exports.verifyPayment = async (req, res) => {
       tripPackageId,
     } = req.body;
 
-    console.log("Payment Data:", {
-  razorpay_order_id,
-  razorpay_payment_id,
-  razorpay_signature,
-  RAZORPAY_KEY_SECRET: process.env.RAZORPAY_KEY_SECRET,
-  user: req.user,
-});
-
+ 
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
       .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
